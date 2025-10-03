@@ -60,6 +60,12 @@ TEST_CASE("Example: Simple widthdraw", "[ex-2]") {
 
   REQUIRE(sam_account.balance == 280.30);
 }
+TEST_CASE("Example: Simple deposit", "[dep]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  atm.DepositCash(12345678, 1234, 20);
+  REQUIRE(atm.CheckBalance(12345678, 1234) == 320.30);
+}
 
 TEST_CASE("Example: Print Prompt Ledger", "[ex-3]") {
   Atm atm;
@@ -107,7 +113,7 @@ TEST_CASE("Deposit Negative Cash", "[ne]") {
   Atm atm;
   atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
   REQUIRE_THROWS_AS(atm.DepositCash(2394949, 1234, -60000.09),
-                    std::runtime_error);
+                    std::invalid_argument);
 }
 
 TEST_CASE("Deposit Nonexisting account", "[non_existing]") {
