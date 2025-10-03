@@ -74,3 +74,52 @@ TEST_CASE("Example: Print Prompt Ledger", "[ex-3]") {
   atm.PrintLedger("./prompt.txt", 12345678, 1234);
   REQUIRE(CompareFiles("./ex-1.txt", "./prompt.txt"));
 }
+
+TEST_CASE("d", "[ex-1]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  REQUIRE_THROWS_AS(atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30),
+                    std::invalid_argument);
+}
+
+TEST_CASE("Negative Withdraw", "[ex-4]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  REQUIRE_THROWS_AS(atm.WithdrawCash(12345678, 1234, -70),
+                    std::invalid_argument);
+}
+
+TEST_CASE("Withdraw nonexisting account", "[ex-4]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  REQUIRE_THROWS_AS(atm.WithdrawCash(2394949, 1234, -70),
+                    std::invalid_argument);
+}
+
+TEST_CASE("Negative Balance", "[ex-4]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  REQUIRE_THROWS_AS(atm.WithdrawCash(2394949, 1234, 60000.09),
+                    std::runtime_error);
+}
+
+TEST_CASE("Deposit Negative Cash", "[ex-4]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  REQUIRE_THROWS_AS(atm.DepositCash(2394949, 1234, -60000.09),
+                    std::runtime_error);
+}
+
+TEST_CASE("Deposit Nonexisting account", "[ex-4]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+  REQUIRE_THROWS_AS(atm.DepositCash(2394949, 1234, -70), std::invalid_argument);
+}
+
+TEST_CASE("Ledger Case", "[ex-4]") {
+  Atm atm;
+  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
+
+  REQUIRE_THROWS_AS(atm.PrintLedger("./prompt.txt", 23, 12),
+                    std::invalid_argument);
+}
