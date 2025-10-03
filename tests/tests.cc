@@ -99,7 +99,7 @@ TEST_CASE("Withdraw nonexisting account", "[non]") {
 TEST_CASE("Negative Balance", "[neg]") {
   Atm atm;
   atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
-  REQUIRE_THROWS_AS(atm.WithdrawCash(2394949, 1234, 60000.09),
+  REQUIRE_THROWS_AS(atm.WithdrawCash(12345678, 1234, 60000.09),
                     std::runtime_error);
 }
 
