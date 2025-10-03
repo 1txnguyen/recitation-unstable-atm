@@ -112,7 +112,7 @@ TEST_CASE("Negative Balance", "[neg]") {
 TEST_CASE("Deposit Negative Cash", "[ne]") {
   Atm atm;
   atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
-  REQUIRE_THROWS_AS(atm.DepositCash(2394949, 1234, -60000.09),
+  REQUIRE_THROWS_AS(atm.DepositCash(12345678, 1234, -60000.09),
                     std::invalid_argument);
 }
 
@@ -124,8 +124,6 @@ TEST_CASE("Deposit Nonexisting account", "[non_existing]") {
 
 TEST_CASE("Ledger Case", "[print]") {
   Atm atm;
-  atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30);
-
   REQUIRE_THROWS_AS(atm.PrintLedger("./prompt.txt", 12345678, 1234),
                     std::invalid_argument);
 }

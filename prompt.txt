@@ -1,4 +1,4 @@
-Name: Sam Sepiol
+Name: 
 Card Number: 12345678
 PIN: 1234
 ----------------------------
